@@ -12,7 +12,7 @@ This is forked from cryptocoinjs/base-x
 
 Available to both node and the browser
 
-Uses Uint8array in browser
+Uses Uint8Array in browser
 
 ## Example
 
