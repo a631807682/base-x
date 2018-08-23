@@ -8,9 +8,41 @@
 Fast base encoding / decoding of any given alphabet using bitcoin style leading
 zero compression.
 
+This is forked from cryptocoinjs/base-x
+
+Available to both node and the browser
+
+Uses Uint8array in browser
+
 ## Example
 
-Base58
+Browser Base58
+
+``` html
+<script src="./base-x.js"></script>
+```
+
+``` javascript
+var BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+var bs58 = base(BASE58)
+
+var enc = new TextEncoder(); // always utf-8
+var arr = enc.encode("This is a string converted to a Uint8Array")
+var encStr = bs58.encode(arr)
+console.log(encStr)
+// => 2QhwuRSWNgihbi1b3haxQ4CqCsN4QVH5USDWNmRWSSAmqwPAf1RnJfErKz
+
+var dec = new TextDecoder();
+var decArr = bs58.decode(encStr)
+console.log(decArr)
+// => Uint8Array(42) [84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 115, 116, 114, 105, 110, 103, 32, 99, 111, 110, 118, 101, 114, 116, 101, 100, 32, 116, 111, 32, 97, 32, 85, 105, 110, 116, 56, 65, 114, 114, 97, 121]
+var orign = dec.decode(decArr)
+console.log(orign)
+// => This is a string converted to a Uint8Array
+```
+
+
+Nodejs Base58
 
 ``` javascript
 var BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
