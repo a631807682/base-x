@@ -51,8 +51,7 @@
 
         // Apply "b58 = b58 * 256 + ch".
         let i = 0
-        for (let it = size - 1;
-                    (carry !== 0 || i < length) && (it !== -1); it--, i++) {
+        for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
           carry += (256 * b58[it]) >>> 0
           b58[it] = (carry % BASE) >>> 0
           carry = (carry / BASE) >>> 0
