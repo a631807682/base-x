@@ -30,7 +30,7 @@
       if (!Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
       if (source.length === 0) return ''
 
-            // Skip & count leading zeroes.
+      // Skip & count leading zeroes.
       let zeroes = 0
       let length = 0
       let pbegin = 0
@@ -41,15 +41,15 @@
         zeroes++
       }
 
-            // Allocate enough space in big-endian base58 representation.
+      // Allocate enough space in big-endian base58 representation.
       const size = ((pend - pbegin) * iFACTOR + 1) >>> 0
       const b58 = new Uint8Array(size)
 
-            // Process the bytes.
+      // Process the bytes.
       while (pbegin !== pend) {
         let carry = source[pbegin]
 
-                // Apply "b58 = b58 * 256 + ch".
+        // Apply "b58 = b58 * 256 + ch".
         let i = 0
         for (let it = size - 1;
                     (carry !== 0 || i < length) && (it !== -1); it--, i++) {
@@ -63,13 +63,13 @@
         pbegin++
       }
 
-            // Skip leading zeroes in base58 result.
+      // Skip leading zeroes in base58 result.
       let it = size - length
       while (it !== size && b58[it] === 0) {
         it++
       }
 
-            // Translate the result into a string.
+      // Translate the result into a string.
       let str = LEADER.repeat(zeroes)
       for (; it < size; ++it) str += ALPHABET.charAt(b58[it])
 
@@ -82,10 +82,10 @@
 
       let psz = 0
 
-            // Skip leading spaces.
+      // Skip leading spaces.
       if (source[psz] === ' ') return
 
-            // Skip and count leading '1's.
+      // Skip and count leading '1's.
       let zeroes = 0
       let length = 0
       while (source[psz] === LEADER) {
@@ -93,16 +93,16 @@
         psz++
       }
 
-            // Allocate enough space in big-endian base256 representation.
+      // Allocate enough space in big-endian base256 representation.
       const size = (((source.length - psz) * FACTOR) + 1) >>> 0 // log(58) / log(256), rounded up.
       const b256 = new Uint8Array(size)
 
-            // Process the characters.
+      // Process the characters.
       while (source[psz]) {
-                // Decode character
+        // Decode character
         let carry = BASE_MAP[source.charCodeAt(psz)]
 
-                // Invalid character
+        // Invalid character
         if (carry === 255) return
 
         let i = 0
@@ -118,10 +118,10 @@
         psz++
       }
 
-            // Skip trailing spaces.
+      // Skip trailing spaces.
       if (source[psz] === ' ') return
 
-            // Skip leading zeroes in b256.
+      // Skip leading zeroes in b256.
       let it = size - length
       while (it !== size && b256[it] === 0) {
         it++

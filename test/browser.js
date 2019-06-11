@@ -23,7 +23,6 @@ function isBuffer (source) {
 fixtures.valid.forEach(function (f) {
   tape.test('can encode ' + f.alphabet + ': ' + f.hex, function (t) {
     var base = bases[f.alphabet]
-        // var actual = base.encode(Buffer.from(f.hex, 'hex'))
     var actual = base.encode(fromHexString(f.hex))
 
     t.plan(1)
@@ -34,7 +33,6 @@ fixtures.valid.forEach(function (f) {
 fixtures.valid.forEach(function (f) {
   tape.test('can decode ' + f.alphabet + ': ' + f.string, function (t) {
     var base = bases[f.alphabet]
-        // var actual = base.decode(f.string).toString('hex')
     var actual = buf2hex(base.decode(f.string))
 
     t.plan(1)
