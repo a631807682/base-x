@@ -30,12 +30,21 @@
   },
   "scripts": {
     "standard": "standard",
-    "test": "npm run unit ",
-    "unit": "tape test/*.js"
+    "test": "npm run unit",
+    "unit": "tape test/index.js",
+    "karma": "karma start karma.conf.js"
   },
   "devDependencies": {
+    "browserify": "^16.2.3",
+    "karma": "^4.1.0",
+    "karma-browserify": "^6.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-read-json": "^1.1.0",
+    "karma-tap": "^4.1.4",
+    "karma-tape": "0.0.1",
     "standard": "^10.0.3",
-    "tape": "^4.5.1"
+    "tape": "^4.5.1",
+    "watchify": "^3.11.1"
   },
   "dependencies": {
     "safe-buffer": "^5.0.1"

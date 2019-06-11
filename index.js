@@ -156,7 +156,31 @@
     Buffer = require('safe-buffer').Buffer
     module.exports = base
   } else {
-    Buffer = Uint8Array
+    Buffer = polyFillBuffer()
     window.base = base
   }
 })(this)
+
+function polyFillBuffer () {
+  function Buffer () {}
+
+  Buffer.prototype = Uint8Array
+  Buffer.constructor.name = 'polyFillBuffer'
+  Buffer.isBuffer = isBuffer
+  Buffer.alloc = alloc
+  Buffer.allocUnsafe = allocUnsafe
+
+  function isBuffer (source) {
+    return source instanceof Uint8Array
+  }
+
+  function alloc (length) {
+    return (new Uint8Array(length)).fill(0x00)
+  }
+
+  function allocUnsafe (length) {
+    return new Uint8Array(length)
+  }
+
+  return Buffer
+}
