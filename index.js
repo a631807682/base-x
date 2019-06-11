@@ -105,8 +105,7 @@
         if (carry === 255) return
 
         let i = 0
-        for (let it = size - 1;
-                    (carry !== 0 || i < length) && (it !== -1); it--, i++) {
+        for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
           carry += (BASE * b256[it]) >>> 0
           b256[it] = (carry % 256) >>> 0
           carry = (carry / 256) >>> 0
