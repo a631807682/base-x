@@ -84,7 +84,7 @@ module.exports = function (config) {
   }
 
   if (process.env.TRAVIS) {
-    options.singleRun = false
+    options.singleRun = true
     options.browsers = [
       'ChromeHeadless',
       'FirefoxHeadless'
