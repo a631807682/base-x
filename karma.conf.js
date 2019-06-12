@@ -2,7 +2,7 @@
 // Generated on Mon Jun 10 2019 18:26:18 GMT+0800 (中国标准时间)
 
 module.exports = function (config) {
-  config.set({
+  let options = {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -30,6 +30,7 @@ module.exports = function (config) {
     },
     plugins: [
       'karma-chrome-launcher',
+      'karma-firefox-launcher',
       'karma-browserify',
       'karma-tape'
     ],
@@ -56,13 +57,39 @@ module.exports = function (config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
+    customLaunchers: {
+      FirefoxHeadless: {
+        base: 'Firefox',
+        flags: [ '-headless' ]
+      },
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--no-sandbox',
+          '--headless',
+          // Without a remote debugging port, Google Chrome exits immediately.
+          '--remote-debugging-port=9222'
+        ],
+        debug: true
+      }
+    },
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
 
-  })
+  }
+
+  if (process.env.TRAVIS) {
+    options.singleRun = false
+    options.browsers = [
+      'ChromeHeadless',
+      'FirefoxHeadless'
+    ]
+  }
+
+  config.set(options)
 }
